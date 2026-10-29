@@ -80,9 +80,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const header = document.querySelector(".site-header");
   window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    header.style.borderBottomColor = scrollY > 50 ? "rgba(212, 165, 116, 0.25)" : "rgba(212, 165, 116, 0.15)";
+    if (!header) return;
+    header.style.borderBottomColor = window.scrollY > 50 ? "rgba(212, 165, 116, 0.25)" : "rgba(212, 165, 116, 0.15)";
   });
+
+  const reelFrames = document.querySelectorAll(".reel-frame");
+  let index = 0;
+
+  if (reelFrames.length) {
+    setInterval(() => {
+      reelFrames.forEach((frame, frameIndex) => {
+        frame.classList.toggle("reel-frame-active", frameIndex === index);
+      });
+      index = (index + 1) % reelFrames.length;
+    }, 1800);
+  }
 
   console.log("Maria's Coffee House website loaded! 🎉☕");
 });
